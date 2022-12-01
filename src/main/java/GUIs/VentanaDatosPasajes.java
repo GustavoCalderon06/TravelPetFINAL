@@ -7,14 +7,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class VentanaDatosPasajes extends Ventana {
+public class VentanaDatosPasajes extends Ventana{
     private JLabel labelLoguear;
-    private JButton botonBuscar, botonCancelar;
-    private JComboBox listaOrigen;
-    private JComboBox listaDestino;
+    private JButton botonBuscar,botonCancelar;
+    private JComboBox listaOrigen,listaDestino;
 
     public VentanaDatosPasajes() {
-
         super("Datos del Pasaje", 400, 450);
         generarElementosVentana();
     }
@@ -24,14 +22,13 @@ public class VentanaDatosPasajes extends Ventana {
         generarBotonBuscarPasaje();
         generarBotonCancelar();
         generarListas();
-
     }
 
     private void generarLabel() {
         JLabel labelTitulo = new JLabel("Ingrese los siguientes datos: ");
         labelTitulo.setBounds(10, 10, 300, 40);
         labelTitulo.setForeground(Color.BLACK);
-        Font fuenteTexto = new Font("Calibri", 1, 25);
+        Font fuenteTexto = new Font("Calibri",1,25);
         labelTitulo.setFont(fuenteTexto);
         this.add(labelTitulo);
     }
@@ -51,32 +48,34 @@ public class VentanaDatosPasajes extends Ventana {
     }
 
 
+
     public void generarListas() {
         JLabel labelOrigen = new JLabel("Origen: ");
         labelOrigen.setBounds(10, 100, 100, 40);
         labelOrigen.setForeground(Color.BLACK);
-        this.listaOrigen = super.generarListaDesplegable(CiudadOrigen.values(), 60, 110, 100, 20);
+        this.listaOrigen=super.generarListaDesplegable(CiudadOrigen.values(),60,110, 100, 20);
         this.add(this.listaOrigen);
         this.add(labelOrigen);
+
         JLabel labelDestino = new JLabel("Destino: ");
-        labelDestino.setBounds(200, 100, 100, 40);
+        labelDestino.setBounds(180, 100, 100, 40);
         labelDestino.setForeground(Color.BLACK);
-        this.listaDestino = super.generarListaDesplegable(CiudadDestino.values(), 250, 110, 100, 20);
+        this.listaDestino=super.generarListaDesplegable(CiudadDestino.values(),240,110, 120, 20);
         this.add(this.listaDestino);
         this.add(labelDestino);
 
 
     }
 
-
+    //Usa estos cambios
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == this.botonBuscar) {
-            VentanaAsientos ventanaAsientos=new VentanaAsientos();
-            VentanaTabla2 ventanaTabla = new VentanaTabla2(ventanaAsientos);
+        boolean state;
+        if(e.getSource() == this.botonBuscar) {
+            VentanaAsientos asientos= new VentanaAsientos();
             this.dispose();
 
         }
-        if (e.getSource() == this.botonCancelar) {
+        if(e.getSource() == this.botonCancelar){
             VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();
             this.dispose();
         }
@@ -84,8 +83,4 @@ public class VentanaDatosPasajes extends Ventana {
     }
 
 
-
-
 }
-
-

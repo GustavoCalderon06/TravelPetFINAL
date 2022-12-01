@@ -12,11 +12,11 @@ public class Pasajero {
     private String numeroTelefono;
     private String rut;
     private Date fecha=new Date();
-    private String asiento;
+    private int asiento;
     private boolean loginState = false;
 
 
-    public Pasajero(String nombre,String rut,String correo, String numeroTelefono) {
+    public Pasajero(String nombre,String correo, String numeroTelefono, String rut) {
         this.nombre = nombre;
         this.correo = correo;
         this.numeroTelefono = numeroTelefono;
@@ -24,20 +24,12 @@ public class Pasajero {
 
     }
 
-
-
-    public Pasajero(String nombre, String correo, String numeroTelefono, String rut, String asiento) {
-        this.nombre = nombre;
-        this.correo = correo;
-        this.numeroTelefono = numeroTelefono;
-        this.rut = rut;
-        this.asiento = asiento;
+    public Pasajero() {
     }
 
-
-    public static void registrarUsuario(String nombre,String rut,String correo, String numeroTelefono) {
-        int newId = FileReader.leerArchivo("src\\main\\resources\\registro\\clientes.txt").size() + 1;
-        DataUpdater.guardarCliente(nombre, correo,numeroTelefono,rut,"src\\main\\resources\\registro\\clientes.txt", newId);
+    public static void registrarUsuario(String nombre, String correo, String numeroTelefono, String rut) {
+        int newId = FileReader.leerArchivo("src\\main\\resources\\clientes.txt").size() + 1;
+        DataUpdater.guardarCliente(nombre, correo,numeroTelefono,rut,"src\\main\\resources\\clientes.txt", newId);
     }
     public boolean registroCheck(String filepath) {
         ArrayList<String> registros = FileReader.leerArchivo(filepath);
@@ -100,22 +92,5 @@ public class Pasajero {
         return loginState;
     }
 
-    public String getAsiento() {
-        return asiento;
-    }
 
-    public void setAsiento(String asiento) {
-        this.asiento = asiento;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Pasajero{" +
-                "nombre='" + nombre + '\'' +
-                ", correo='" + correo + '\'' +
-                ", numeroTelefono='" + numeroTelefono + '\'' +
-                ", rut='" + rut + '\'' +
-                '}';
-    }
 }

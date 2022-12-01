@@ -1,30 +1,19 @@
 package GUIs;
-
 import model.Pasajero;
-import utils.ValidadorRut;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class VentanaComprador extends Ventana {
-    private JLabel textoEncabezado, textoRut, textoNombre, textoDireccion, textoNumeroTelefonico, textoCorreo;
-    private JTextField textFieldNombre, textFieldCorreo, textFieldTelefono, textFieldRut;
-    private String nombre,correo,numero,rut;
+    private JLabel textoEncabezado, textoRut, textoNombre, textoDireccion, textoNumeroTelefonico, textoCorreo, textoNombreMascota, textoTipoMascota, textoPesoMascota;
+    private JTextField textFieldNombre, textFieldCorreo, textFieldTelefono, textFieldRut, textFieldNombreMascota, textFieldTipoMascota, textFieldPesoMascota;
     private JButton botonContinuar, botonRegresar;
 
-    private boolean regresar;
 
-    private VentanaSimulacionCompra ventanaSimulacionCompra;
-
-
-
-    public VentanaComprador(VentanaSimulacionCompra ventanaSimulacionCompra) {
+    public VentanaComprador() {
         super("Datos del cliente", 500, 520);
-        this.ventanaSimulacionCompra = ventanaSimulacionCompra;
-        regresar = false;
         generarElementosVentana();
     }
-
 
     private void generarElementosVentana() {
         generarEncabezado();
@@ -34,9 +23,10 @@ public class VentanaComprador extends Ventana {
         generarTextFieldCorreo();
         generarTextFieldTelefono();
         generarTextFieldRut();
-
+        generarTextFieldNombreMascota();
+        generarTextFieldTipoMascota();
+        generarTextFieldPesoMascota();
     }
-
 
     private void generarEncabezado() {
         String textoCabecera = "Datos del cliente";
@@ -86,96 +76,79 @@ public class VentanaComprador extends Ventana {
         this.add(this.textFieldRut);
     }
 
+    private void generarTextFieldNombreMascota() {
+        String textoNombreMascota = "Nombre de mascota:";
+        super.generarJLabel(this.textoNombreMascota, textoNombreMascota, 20, 300, 150, 20);
+        this.textFieldNombreMascota = super.generarJTextField(200, 300, 250, 20);
+        this.add(this.textFieldNombreMascota);
+
+    }
+
+    private void generarTextFieldTipoMascota() {
+        String textoTipoMascota = "Tipo de Mascota:";
+        super.generarJLabel(this.textoPesoMascota, textoTipoMascota, 20, 350, 150, 20);
+        this.textFieldTipoMascota = super.generarJTextField(200, 350, 250, 20);
+        this.add(this.textFieldTipoMascota);
+
+    }
+
+    private void generarTextFieldPesoMascota() {
+        String textoPesoMascota = "Peso de mascota";
+        super.generarJLabel(this.textoPesoMascota, textoPesoMascota, 20, 400, 150, 20);
+        this.textFieldPesoMascota = super.generarJTextField(200, 400, 250, 20);
+        this.add(this.textFieldPesoMascota);
+
+    }
+
 
     public void resetText() {
         textFieldNombre.setText("");
         textFieldCorreo.setText("");
         textFieldTelefono.setText("");
         textFieldRut.setText("");
-
+        textFieldNombreMascota.setText("");
+        textFieldTipoMascota.setText("");
+        textFieldPesoMascota.setText("");
 
     }
 
-    public void registrarCliente(String nombre,String correo,String numero,String rut) {
-        if (!nombre.isEmpty() && !correo.isEmpty() && !numero.isEmpty()) {
-            Pasajero pasajero = new Pasajero(nombre, rut, correo, numero);
-
-
-            if (!pasajero.registroCheck("src\\main\\resources\\registro\\clientes.txt")) {
-                pasajero.registrarUsuario(nombre, rut, correo, numero);
+    public void registrarCliente() {
+        String nombre = textFieldNombre.getText();
+        String correo = textFieldCorreo.getText();
+        String numero = textFieldTelefono.getText();
+        String rut = textFieldRut.getText();
+        if (!nombre.isEmpty() && !correo.isEmpty() && !numero.isEmpty() && !rut.isEmpty()) {
+            Pasajero pasajero = new Pasajero(nombre, correo, numero, rut);
+            if (!pasajero.registroCheck("src\\main\\resources\\clientes.txt")) {
+                pasajero.registrarUsuario(nombre, correo, numero, rut);
                 JOptionPane.showMessageDialog(this, "Registro exitoso.");
 
             } else {
                 JOptionPane.showMessageDialog(this, "Registro no exitoso, intente uno diferente.");
                 resetText();
             }
-
-
         } else {
             JOptionPane.showMessageDialog(this, "Registro no exitoso, intente nuevamente.");
             resetText();
         }
-
-
-    }
-    public void deshabilitarElementos(){
-        textFieldNombre.setEnabled(false);
-        textFieldCorreo.setEnabled(false);
-        textFieldRut.setEnabled(false);
-        textFieldTelefono.setEnabled(false);
-        botonContinuar.setEnabled(false);
-        botonRegresar.setEnabled(false);
+        String nombreMascota = textFieldNombreMascota.getText();
+        String TipoMascota = textFieldTipoMascota.getText();
+        String PesoMascota = textFieldPesoMascota.getText();
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
-    public String getNumero() {
-        return numero;
-    }
-
-    public String getRut() {
-        return rut;
-    }
 
     public void actionPerformed(ActionEvent e) {
-        this.nombre = textFieldNombre.getText();
-        this.correo = textFieldCorreo.getText();
-        this.numero = textFieldTelefono.getText();
-        this.rut = textFieldRut.getText();
         if (e.getSource() == this.botonContinuar) {
-            if (ValidadorRut.validarDigito(rut)){
-                deshabilitarElementos();
+            registrarCliente();
+            VentanaSimulacionCompra simulacionCompra=new VentanaSimulacionCompra();
+            this.dispose();
 
-                registrarCliente(nombre,correo,numero,rut);
-
-                this.ventanaSimulacionCompra.setVisible(true);
-                this.ventanaSimulacionCompra.setNombre(nombre);
-                this.ventanaSimulacionCompra.setCorreo(correo);
-                this.ventanaSimulacionCompra.setNumero(numero);
-                this.ventanaSimulacionCompra.setRut(rut);
-
-
-
-            }else{
-                JOptionPane.showMessageDialog(this, "Rut imcorrecto.");
-                resetText();
-            }
 
         }
         if (e.getSource() == this.botonRegresar) {
-            regresar = true;
-
             this.dispose();
         }
-    }
 
-    public boolean isRegresar() {
-        return regresar;
     }
 }
+

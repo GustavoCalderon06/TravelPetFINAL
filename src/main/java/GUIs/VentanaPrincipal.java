@@ -1,12 +1,12 @@
 package GUIs;
 
+import Interface.VentanaMenu;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class VentanaPrincipal extends Ventana  {
-    private JLabel imagen;
+public class VentanaPrincipal extends Ventana implements VentanaMenu {
     private JLabel bienvenida;
     private JButton botonRegistro, botonLogin, botonSalida;
 
@@ -20,9 +20,16 @@ public class VentanaPrincipal extends Ventana  {
         generarSegundoBoton();
         generarTercerBoton();
         generarImagen();
+
     }
 
 
+    public void generarImagen() {
+        JLabel labelUser = new JLabel(new ImageIcon("src\\main\\resources\\Logo.png"));
+        labelUser.setBounds(40, 40, 200, 200);
+        labelUser.setForeground(Color.BLACK);
+        super.add(labelUser);
+    }
 
     public void generarPrimerBoton() {
         String textoBoton = "Registrarse";
@@ -44,13 +51,6 @@ public class VentanaPrincipal extends Ventana  {
         this.add(this.botonSalida);
         this.botonSalida.addActionListener(this);
     }
-    public void generarImagen() {
-        this.imagen = new JLabel(new ImageIcon("src\\main\\resources\\imagenes\\Logo.png"));
-        this.imagen.setBounds(40, 40, 200, 200);
-        this.imagen.setForeground(Color.BLACK);
-        super.add(this.imagen);
-    }
-
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.botonRegistro) {

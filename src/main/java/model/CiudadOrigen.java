@@ -1,7 +1,7 @@
 package model;
 
 public enum CiudadOrigen {
-    PUCON("PUCON"),
+    PUCON("Pucon"),
     TEMUCO("Temuco"),
     VILLARRICA("Villarrica");
 

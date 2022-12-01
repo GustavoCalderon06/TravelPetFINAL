@@ -1,6 +1,5 @@
 package utils;
 
-import model.Mascota;
 import model.Pasajero;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -12,15 +11,14 @@ import java.io.IOException;
 import java.util.Date;
 
 public class GestorPDF {
-
-    public void generarBoleta(Pasajero pasajero, Mascota mascota) throws IOException {
+    public void generarBoleta(Pasajero pasajero) throws IOException {
 //Se crea un nuevo documento
         PDDocument documento = new PDDocument();
 //Al documento se le crea y agrega una nueva página, en este caso en formato A6
         PDPage pagina = new PDPage(PDRectangle.A6);
         documento.addPage(pagina);
 //Se genera un arreglo de líneas que va a tener el archivo PDF
-        String[] lineasPdf= this.obtenerLíneasPdf(pasajero,mascota);
+        String[] lineasPdf= this.obtenerLíneasPdf(pasajero);
         this.rellenarPDF(documento,pagina,lineasPdf);
 //Se guarda el documento en la ubicación descrita
         documento.save(this.generarNombrePdf(pasajero.getFecha()));
@@ -42,37 +40,33 @@ public class GestorPDF {
             e.printStackTrace();
         }
     }
-    public String[] obtenerLíneasPdf(Pasajero pasajero,Mascota mascota){
+    public String[] obtenerLíneasPdf(Pasajero pasajero){
+        String[] lineasPdf= new String[10];
+        lineasPdf[0]="Boleta electrónica - venta pasaje";
+        lineasPdf[1]="Travel Pet";
 
+        //posible uso
+        /*lineasPdf[2]="Fecha ="+pasajero.getFecha();
+        lineasPdf[3]= "Nombre ="+pasajero.getNombre();
+        lineasPdf[4]= "Rut ="+pasajero.getRut();
+        lineasPdf[5]= "Correo ="+pasajero.getCorreo();
+        lineasPdf[6]= "Numero telefono ="+pasajero.getNumeroTelefono();*/
 
-        String[] lineasPdf= new String[19];
-        lineasPdf[0]= "--------------------------------------------------------------------";
-        lineasPdf[1]="Boleta electrónica - venta pasaje";
-        lineasPdf[2]="Travel Pet";
-        lineasPdf[3]= "--------------------------------------------------------------------";
-        lineasPdf[4]="Fecha de compra ="+pasajero.getFecha();
-        lineasPdf[5]= "Asiento comprador="+pasajero.getAsiento();
-        lineasPdf[6]= "Nombre Comprador= "+pasajero.getNombre();
-        lineasPdf[7]= "Rut="+pasajero.getRut();
-        lineasPdf[8]= "Correo de comprador="+pasajero.getCorreo();
-        lineasPdf[9]= "Numero telefonico="+pasajero.getNumeroTelefono();
-        lineasPdf[10]= "--------------------------------------------------------------------";
-        lineasPdf[11]= "Origen = Pucon";
-        lineasPdf[12]= "Destino =Chillan";
-        lineasPdf[13]= "--------------------------------------------------------------------";
-        lineasPdf[14]= "Asiento mascota="+mascota.getAsiento();
-        lineasPdf[15]= "Nombre de mascota ="+mascota.getNombre();
-        lineasPdf[16]= "Tipo de mascota ="+mascota.getTipo();
-        lineasPdf[17]= "Peso de mascota ="+mascota.getPeso();
-        lineasPdf[18]="---------------------------------------------------------------------";
+        lineasPdf[2]="Fecha ="+pasajero.getFecha();
+        lineasPdf[3]= "Nombre Comprador= Gustavo";
+        lineasPdf[4]= "Origen = Pucon";
+        lineasPdf[5]= "Destino =Chillan";
+        lineasPdf[6]= "Nombre de mascota =Juanin";
+        lineasPdf[7]= "Tipo de mascota =Perro";
+        lineasPdf[8]= "Peso de mascota =10kg";
+        lineasPdf[9]="---------------------------------------------------------------------";
         return lineasPdf;
     }
     private String generarNombrePdf(Date fecha){
         System.out.println(fecha.toString());
         String fechaArchivo= fecha.toString();
         fechaArchivo=fechaArchivo.replace(" ","").replace(":","");
-        //String nombreArchivo="target/"+"boleta"+fechaArchivo+".pdf";
-        String nombreArchivo="src\\main\\resources\\PDFs\\"+"boleta"+fechaArchivo+".pdf";
+        String nombreArchivo="target/"+"boleta"+fechaArchivo+".pdf";
         return nombreArchivo;
     }
 

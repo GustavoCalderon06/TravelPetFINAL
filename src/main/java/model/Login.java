@@ -1,11 +1,9 @@
 package model;
-
-import data.DataUpdater;
 import data.FileReader;
-
+import data.DataUpdater;
 import java.util.ArrayList;
 
-public class Login {
+public class Login{
     private String user;
     private String pass;
     private boolean loginState = false;
@@ -15,9 +13,9 @@ public class Login {
         this.pass = pass;
     }
 
-    public static void registrarUsuario(String user, String pass) {
-        int newId = FileReader.leerArchivo("src\\main\\resources\\registro\\IDPass.txt").size() + 1;
-        DataUpdater.guardarUsuario(user, pass, "src\\main\\resources\\registro\\IDPass.txt", newId);
+    public static void registrarUsuario(String user,String pass) {
+        int newId = FileReader.leerArchivo("src\\main\\resources\\IDPass.txt").size() + 1;
+        DataUpdater.guardarUsuario(user, pass, "src\\main\\resources\\IDPass.txt", newId);
     }
 
     public String[] logearUsuario(String filepath) {
@@ -33,6 +31,7 @@ public class Login {
         }
         return usuarioLogeado;
     }
+
     public boolean registroCheck(String filepath) {
         ArrayList<String> registros = FileReader.leerArchivo(filepath);
         this.loginState = false;
@@ -45,7 +44,6 @@ public class Login {
         }
         return this.loginState;
     }
-
     public boolean isLoginState() {
         return loginState;
     }

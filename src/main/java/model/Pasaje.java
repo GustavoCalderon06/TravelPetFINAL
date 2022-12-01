@@ -1,25 +1,23 @@
 package model;
 
-
-
 public class Pasaje {
-    private String destino;
+    private CiudadDestino destino;
     private CiudadOrigen origen;
     private int valor;
     private int dia;
 
-    public Pasaje(CiudadOrigen origen,String destino,  int valor, int dia) {
+    public Pasaje(CiudadDestino destino, CiudadOrigen origen, int valor, int dia) {
         this.destino = destino;
         this.origen = origen;
         this.valor = valor;
         this.dia = dia;
     }
 
-    public String getDestino() {
+    public CiudadDestino getDestino() {
         return destino;
     }
 
-    public void setDestino(String destino) {
+    public void setDestino(CiudadDestino destino) {
         this.destino = destino;
     }
 
@@ -45,15 +43,5 @@ public class Pasaje {
 
     public void setDia(int dia) {
         this.dia = dia;
-    }
-
-    @Override
-    public String toString() {
-        return "Pasaje{" +
-                "destino='" + destino + '\'' +
-                ", origen=" + origen +
-                ", valor=" + valor +
-                ", dia=" + dia +
-                '}';
     }
 }

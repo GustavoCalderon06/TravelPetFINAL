@@ -2,6 +2,7 @@ package GUIs;
 
 import model.Login;
 
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -72,27 +73,20 @@ public class VentanaLogin extends Ventana {
     //Usa estos cambios
     public void actionPerformed(ActionEvent e) {
         boolean state;
-        String vacio="";
-
         if(e.getSource() == this.botonLogear) {
-            if (!userInputPanel.getText().equals(vacio) && !passInputPanel.getText().equals(vacio)) {
-                Login login = new Login(userInputPanel.getText(), String.valueOf(passInputPanel.getPassword()));
-                login.logearUsuario("src\\main\\resources\\registro\\IDPass.txt");
-                state = login.isLoginState();
-                if (!state) {
-                    JOptionPane.showMessageDialog(this, "Login incorrecto, intente nuevamente.");
-                    userInputPanel.setText("");
-                    passInputPanel.setText("");
-                }
-                else{
-                    JOptionPane.showMessageDialog(this, "Logueado correctamente");
-                    VentanaCliente cliente = new VentanaCliente();
-                    this.dispose();
+            Login login = new Login(userInputPanel.getText(), String.valueOf(passInputPanel.getPassword()));
+            login.logearUsuario("src\\main\\resources\\IDPass.txt");
+            state = login.isLoginState();
+            if (!state) {
+                JOptionPane.showMessageDialog(this, "Login incorrecto, intente nuevamente.");
+                userInputPanel.setText("");
+                passInputPanel.setText("");
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Logueado correctamente");
+                VentanaCliente cliente = new VentanaCliente();
+                this.dispose();
 
-                }
-
-            }else{
-                JOptionPane.showMessageDialog(this, "Login no exitoso, intente nuevamente.");
             }
         }
         if(e.getSource() == this.botonReset){

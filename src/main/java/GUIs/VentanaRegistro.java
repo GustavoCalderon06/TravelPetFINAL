@@ -1,5 +1,4 @@
 package GUIs;
-
 import model.Login;
 
 import javax.swing.*;
@@ -12,6 +11,8 @@ public class VentanaRegistro extends Ventana {
     private JTextField userInputPanel;
     private JPasswordField passInputPanel;
     private JPasswordField passConfirmationInputPanel;
+
+
     public VentanaRegistro() {
         super("VentanaRegistro", 600, 700);
         generarElementosVentana();
@@ -26,28 +27,38 @@ public class VentanaRegistro extends Ventana {
         generarInputPanels();
 
     }
+
+
     private void generarLabel() {
         String textoBienvenida = "Registrarse";
         super.generarJLabelEncabezado(this.labelRegistro, textoBienvenida, 150, 30, 600, 60);
     }
+
+
     public void generarBotonRegistrar() {
         String textoBoton = "Registrarse";
         this.botonRegistrar = super.generarBoton(textoBoton, 320, 450, 200, 50);
         this.add(this.botonRegistrar);
         this.botonRegistrar.addActionListener(this);
     }
+
+
     public void generarBotonReset() {
         String textoBoton = "Borrar";
         this.botonReset = super.generarBoton(textoBoton, 100, 450, 200, 50);
         this.add(this.botonReset);
         this.botonReset.addActionListener(this);
     }
+
+
     public void generarBotonVolver() {
         String textoBoton = "Volver";
         this.botonVolver = super.generarBoton(textoBoton, 210, 550, 200, 50);
         this.add(this.botonVolver);
         this.botonVolver.addActionListener(this);
     }
+
+
     public void generarInputPanels() {
         JLabel labelUser = new JLabel("Usuario: ");
         labelUser.setBounds(100, 150, 200, 40);
@@ -88,7 +99,7 @@ public class VentanaRegistro extends Ventana {
         if (!user.isEmpty() && !pass.isEmpty()) {
             if (pass.equalsIgnoreCase(confirmation)) {
                 Login login = new Login(user, pass);
-                if(!login.registroCheck("src\\main\\resources\\registro\\IDPass.txt")) {
+                if(!login.registroCheck("src\\main\\resources\\IDPass.txt")) {
                     login.registrarUsuario(user,pass);
                     JOptionPane.showMessageDialog(this, "Registro exitoso.");
 
@@ -114,8 +125,6 @@ public class VentanaRegistro extends Ventana {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.botonRegistrar) {
             registrarUsuario();
-            VentanaPrincipal ventanaPrincipal=new VentanaPrincipal();
-            this.dispose();
         }
         if (e.getSource() == this.botonReset) {
             resetText();

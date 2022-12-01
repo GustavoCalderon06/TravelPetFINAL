@@ -1,11 +1,12 @@
 package GUIs;
 
+import Interface.VentanaMenu;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
 
-public class VentanaCliente extends Ventana {
+public class VentanaCliente extends Ventana implements VentanaMenu {
     private JLabel bienvenida;
     private JButton botonComprar, botonTarifas, botonSalida;
 
@@ -24,7 +25,7 @@ public class VentanaCliente extends Ventana {
 
 
     public void generarImagen() {
-        ImageIcon imagen=new ImageIcon("src\\main\\resources\\imagenes\\Cliente.jpg");
+        ImageIcon imagen=new ImageIcon("src\\main\\resources\\Cliente.jpg");
         JLabel labelUser = new JLabel();
         labelUser.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(400,400,Image.SCALE_SMOOTH)));
         labelUser.setBounds(50, 0, 400, 400);
