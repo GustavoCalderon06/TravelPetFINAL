@@ -1,0 +1,11 @@
+juan,perro,12
+12312,23123,2
+dsaDSAd,asdasd,2
+sadasd,sadas,2
+Pepe,perro,12
+gera,perro,12
+caco,perro,12
+pepito,perro,5
+cachupin,perro,2
+Pepe,perro,10
+Pepe,perro,10
